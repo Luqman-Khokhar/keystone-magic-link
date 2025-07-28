@@ -1,4 +1,4 @@
-# 🔐 Keystone 6 Magic Auth Login
+# 🔐 Keystone 6 Magic Auth Login / (Use - AuthRemoved - Branch)
 
 This project implements **passwordless login** using **Magic Link Authentication** with [Keystone 6](https://keystonejs.com/).  
 Users enter their email and receive a secure link to log in — no passwords required! ✨
