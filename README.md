@@ -1,52 +1,52 @@
-# Keystone Project Starter
+# 🔐 Keystone 6 Magic Auth Login
 
-Welcome to Keystone!
+This project implements **passwordless login** using **Magic Link Authentication** with [Keystone 6](https://keystonejs.com/).  
+Users enter their email and receive a secure link to log in — no passwords required! ✨
 
-Run
+---
 
-```
-npm run dev
-```
+## 📦 Tech Stack & Libraries
 
-To view the config for your new app, look at [./keystone.ts](./keystone.ts)
+This repo uses the following key libraries:
 
-This project starter is designed to give you a sense of the power Keystone can offer you, and show off some of its main features. It's also a pretty simple setup if you want to build out from it.
-
-We recommend you use this alongside our [getting started walkthrough](https://keystonejs.com/docs/walkthroughs/getting-started-with-create-keystone-app) which will walk you through what you get as part of this starter.
-
-If you want an overview of all the features Keystone offers, check out our [features](https://keystonejs.com/why-keystone#features) page.
-
-## Some Quick Notes On Getting Started
-
-### Changing the database
-
-We've set you up with an [SQLite database](https://keystonejs.com/docs/apis/config#sqlite) for ease-of-use. If you're wanting to use PostgreSQL, you can!
-
-Just change the `db` property on line 16 of the Keystone file [./keystone.ts](./keystone.ts) to
-
-```typescript
-db: {
-    provider: 'postgresql',
-    url: process.env.DATABASE_URL || 'DATABASE_URL_TO_REPLACE',
+```json
+{
+  "@apollo/client": "^3.13.8",
+  "@keystone-6/auth": "^8.0.0",
+  "@keystone-6/core": "^6.5.1",
+  "@keystone-6/fields-document": "^9.0.0",
+  "@prisma/client": "^5.22.0",
+  "@types/nodemailer": "^6.4.17",
+  "dotenv": "^17.2.1",
+  "nodemailer": "^7.0.5",
+  "prisma": "^5.22.0",
+  "typescript": "^5.5.0"
 }
-```
 
-And provide your database url from PostgreSQL.
+🧪 Magic Link Login Flow
+📧 User enters email on the /login page
 
-For more on database configuration, check out or [DB API Docs](https://keystonejs.com/docs/apis/config#db)
+🔗 Keystone sends a magic login link to the email
 
-### Auth
+🌐 User clicks the link (e.g. /magicLogin?token=...&email=...)
 
-We've put auth into its own file to make this humble starter easier to navigate. To explore it without auth turned on, comment out the `isAccessAllowed` on line 21 of the Keystone file [./keystone.ts](./keystone.ts).
+🔓 The app redeems the token via GraphQL
 
-For more on auth, check out our [Authentication API Docs](https://keystonejs.com/docs/apis/auth#authentication-api)
+✅ Session is created, and user is logged in!
 
-### Adding a frontend
+✨ Core GraphQL Mutations
+🔐 sendUserMagicAuthLink
+Sends a login email if the user exists.
+🔑 redeemUserMagicAuthToken
+Redeems the magic link token.
 
-As a Headless CMS, Keystone can be used with any frontend that uses GraphQL. It provides a GraphQL endpoint you can write queries against at `/api/graphql` (by default [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql)). At Thinkmill, we tend to use [Next.js](https://nextjs.org/) and [Apollo GraphQL](https://www.apollographql.com/docs/react/get-started/) as our frontend and way to write queries, but if you have your own favourite, feel free to use it.
 
-A walkthrough on how to do this is forthcoming, but in the meantime our [todo example](https://github.com/keystonejs/keystone-react-todo-demo) shows a Keystone set up with a frontend. For a more full example, you can also look at an example app we built for [Prisma Day 2021](https://github.com/keystonejs/prisma-day-2021-workshop)
+⚙️ Scripts
+npm run dev      # Start Keystone dev server
+npm run build    # Build the app
 
-### Embedding Keystone in a Next.js frontend
-
-While Keystone works as a standalone app, you can embed your Keystone app into a [Next.js](https://nextjs.org/) app. This is quite a different setup to the starter, and we recommend checking out our walkthrough for that [here](https://keystonejs.com/docs/walkthroughs/embedded-mode-with-sqlite-nextjs#how-to-embed-keystone-sq-lite-in-a-next-js-app).
+🔧 Environment Variables
+Create a .env file with:
+SESSION_SECRET=your-session-secret
+EMAIL_USER=your-email@example.com
+EMAIL_PASS=your-email-password-or-app-password
